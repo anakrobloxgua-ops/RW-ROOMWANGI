@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#fffaf6">
+<title>RW GACOR — V2.3</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+:root{
+  --bg:#fffaf6;
+  --surface:#ffffff;
+  --soft:#fff2e8;
+  --orange:#d99a70;
+  --orange-dark:#b97950;
+  --text:#453a33;
+  --muted:#a39890;
+  --border:#f1e6dd;
+  --shadow:0 10px 30px rgba(126,91,64,.07);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  min-height:100vh;overflow-x:hidden;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.screen{display:none;min-height:100vh}
+.screen.active{display:flex;flex-direction:column}
+#activation{
+  justify-content:center;align-items:center;padding:26px;
+  position:relative;isolation:isolate;background:transparent;
+}
+#watcherCanvas{
+  position:fixed;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:-1;
+}
+.logo{
+  width:76px;height:76px;border-radius:26px;
+  display:grid;place-items:center;background:var(--soft);
+  color:var(--orange-dark);margin:0 auto 18px;
+  border:1px solid var(--border);
+}
+.logo svg{width:34px;height:34px}
+.brand{text-align:center;font-size:25px;font-weight:800;letter-spacing:-1px}
+.brand span{color:var(--orange-dark)}
+.subtitle{text-align:center;font-size:12px;color:var(--muted);margin-top:8px}
+.card{
+  width:100%;background:var(--surface);border:1px solid var(--border);
+  border-radius:22px;padding:20px;box-shadow:var(--shadow);
+}
+.activation-card{max-width:390px;margin-top:28px}
+.section-title{font-size:15px;font-weight:800;margin:0 0 6px}
+.small{font-size:11px;color:var(--muted);line-height:1.7}
+.field-label{display:block;font-size:11px;font-weight:700;margin:17px 0 8px}
+.field{
+  width:100%;border:1px solid var(--border);border-radius:13px;
+  padding:14px;background:#fffdfb;color:var(--text);outline:none;
+  font-size:12px;transition:.2s;
+}
+.field:focus{border-color:var(--orange)}
+.primary{
+  width:100%;border:0;border-radius:13px;padding:14px;
+  background:var(--orange);color:white;font-size:12px;font-weight:800;
+  margin-top:18px;transition:transform .15s,background .2s;
+}
+.primary:active{transform:scale(.97)}
+.get-key{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  width:100%;border:1px solid var(--border);border-radius:13px;
+  padding:13px;margin-top:10px;background:#fffaf6;
+  color:var(--orange-dark);font-size:12px;font-weight:800;
+  text-decoration:none;transition:transform .15s,background .2s;
+}
+.get-key:active{transform:scale(.97)}
+.get-key svg{width:15px;height:15px}
+.error{font-size:11px;color:#c45d4d;margin-top:12px;display:none}
+.topbar{
+  padding:20px 19px 13px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;
+}
+.top-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
+.mini-logo{
+  width:38px;height:38px;border-radius:13px;background:var(--soft);
+  color:var(--orange-dark);display:grid;place-items:center;
+}
+.mini-logo svg{width:20px;height:20px}
+.version{font-size:10px;background:var(--soft);color:var(--orange-dark);padding:7px 10px;border-radius:20px;font-weight:800}
+.content{padding:5px 17px 110px;flex:1}
+.greeting{font-size:22px;font-weight:800;letter-spacing:-.7px}
+.greeting span{color:var(--orange-dark)}
+.description{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7}
+.section{margin-top:19px}
+.section-heading{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;margin-bottom:12px}
+.section-heading svg{width:16px;height:16px;color:var(--orange-dark)}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field-wrap{min-width:0}
+.field-wrap .field-label{margin-top:0}
+.field-wrap .field{padding:12px 10px;font-size:11px}
+select.field{appearance:auto}
+.toggle-list{display:flex;flex-direction:column;gap:0}
+.toggle-row{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:12px;padding:14px 0;border-bottom:1px solid #f6eee8;
+}
+.toggle-row:last-child{border-bottom:0}
+.toggle-info{display:flex;align-items:center;gap:11px;min-width:0}
+.toggle-icon{
+ width:35px;height:35px;flex-shrink:0;border-radius:12px;
+ background:var(--soft);color:var(--orange-dark);display:grid;place-items:center
+}
+.toggle-icon svg{width:17px;height:17px}
+.toggle-name{font-size:11px;font-weight:800}
+.toggle-desc{font-size:10px;color:var(--muted);margin-top:4px}
+.switch{position:relative;width:39px;height:23px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{
+ position:absolute;inset:0;background:#e9e0d9;border-radius:30px;transition:.25s
+}
+.slider:before{
+ content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;
+ border-radius:50%;background:white;box-shadow:0 1px 4px #0001;transition:.25s
+}
+.switch input:checked+.slider{background:var(--orange)}
+.switch input:checked+.slider:before{transform:translateX(16px)}
+.status-card{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.status-left{display:flex;align-items:center;gap:11px}
+.status-dot{width:9px;height:9px;border-radius:50%;background:#82b991;box-shadow:0 0 0 4px #82b99120}
+.status-name{font-size:12px;font-weight:800}
+.status-desc{font-size:10px;color:var(--muted);margin-top:4px}
+.status-pill{background:#eff8f0;color:#578c62;font-size:10px;font-weight:800;padding:7px 10px;border-radius:20px}
+.info-row{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #f6eee8;font-size:11px}
+.info-row:last-child{border-bottom:0}
+.info-row span:first-child{color:var(--muted)}
+.info-row strong{text-align:right;overflow-wrap:anywhere}
+.info-icon{
+ width:62px;height:62px;border-radius:21px;display:grid;place-items:center;
+ color:var(--orange-dark);background:var(--soft);margin-bottom:14px;
+}
+.info-icon svg{width:29px;height:29px}
+.info-name{font-size:23px;font-weight:800;letter-spacing:-.7px}
+.info-name span{color:var(--orange-dark)}
+.info-badge{display:inline-flex;margin-top:9px;padding:7px 10px;border-radius:20px;background:var(--soft);color:var(--orange-dark);font-size:10px;font-weight:800}
+.navbar{
+ position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
+ width:min(330px,calc(100% - 34px));padding:6px;
+ border:1px solid var(--border);border-radius:20px;background:#ffffffed;
+ box-shadow:0 10px 35px #7b58331a;backdrop-filter:blur(16px);
+ display:flex;gap:4px;z-index:10;
+}
+.nav-item{
+ position:relative;isolation:isolate;flex:1;border:0;background:transparent;
+ border-radius:15px;min-height:48px;color:var(--muted);
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ gap:4px;font-size:9px;font-weight:800;transition:color .25s;
+}
+.nav-item svg{width:18px;height:18px;position:relative;z-index:1}
+.nav-item span{position:relative;z-index:1}
+.nav-item.active{color:var(--orange-dark)}
+.nav-item.active:before{
+ content:"";position:absolute;inset:0;background:var(--soft);border-radius:15px;
+ animation:bubble .3s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes bubble{
+ 0%{transform:scale(.65);border-radius:50%;opacity:.4}
+ 70%{transform:scale(1.06);border-radius:13px}
+ 100%{transform:scale(1);border-radius:15px;opacity:1}
+}
+.toast{
+ position:fixed;left:50%;bottom:88px;transform:translate(-50%,15px);
+ opacity:0;pointer-events:none;background:#493d35;color:white;
+ padding:12px 16px;border-radius:12px;font-size:11px;z-index:20;
+ transition:.25s;max-width:calc(100% - 35px);text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.loader{
+ position:fixed;inset:0;background:var(--bg);z-index:99;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ transition:opacity .4s;
+}
+.loader.hidden{opacity:0;pointer-events:none}
+.orbit{
+ width:76px;height:76px;border:2px solid var(--border);border-radius:50%;
+ display:grid;place-items:center;position:relative;animation:spin 3s linear infinite;
+}
+.orbit:before{
+ content:"";position:absolute;width:11px;height:11px;border-radius:50%;
+ background:var(--orange);top:-5px;left:31px;box-shadow:0 0 12px #d99a7080
+}
+.orbit .mini-logo{width:52px;height:52px;border-radius:18px;animation:spin 3s linear infinite reverse}
+.loader-title{font-weight:800;margin-top:22px;font-size:15px}
+.loader-sub{font-size:10px;color:var(--muted);margin-top:7px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.footer-note{text-align:center;color:var(--muted);font-size:9px;line-height:1.7;margin:18px 0}
+@media(min-width:600px){
+ .content{width:100%;max-width:520px;margin:0 auto}
+ .topbar{width:100%;max-width:520px;margin:auto}
+}
+@media(prefers-reduced-motion:reduce){
+ #watcherCanvas{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Animasi manusia lidi khusus halaman aktivasi -->
+<canvas id="watcherCanvas" aria-hidden="true"></canvas>
+
+<div class="loader" id="loader">
+  <div class="orbit"><div class="mini-logo"><i data-lucide="shield-check"></i></div></div>
+  <div class="loader-title">WELCOME TO ROOM WANGI</div>
+  <div class="loader-sub">Menyiapkan pengalaman kamu...</div>
+</div>
+
+<section class="screen active" id="activation">
+  <div style="width:100%;max-width:390px">
+    <div class="logo"><i data-lucide="shield-check"></i></div>
+    <div class="brand">Room Wangi<span> GACOR</span></div>
+    <div class="subtitle">Room Wangi MLBB · Version 2.3</div>
+    <div class="card activation-card">
+      <h2 class="section-title">Aktivasi perangkat</h2>
+      <div class="small">Masukkan username dan activation key untuk memulai trial selama 7 hari.</div>
+      <label class="field-label" for="username">USERNAME</label>
+      <input class="field" id="username" placeholder="Masukkan username kamu" maxlength="30" autocomplete="username">
+      <label class="field-label" for="activationKey">ACTIVATION KEY</label>
+      <input class="field" id="activationKey" placeholder="Masukkan activation key" autocomplete="off">
+      <button class="primary" id="activateBtn"><i data-lucide="shield-check" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> Aktivasi Sekarang</button>
+      <a class="get-key" id="getKeyBtn" href="#" target="_blank" rel="noopener noreferrer"><i data-lucide="key-round"></i> GET KEY</a>
+      <div class="error" id="activationError">Username atau activation key tidak valid.</div>
+    </div>
+    <div class="footer-note">Trial 7 hari · Really terhubung ke system MLBB</div>
+  </div>
+</section>
+
+<section class="screen" id="app">
+  <header class="topbar">
+    <div class="top-brand"><div class="mini-logo"><i data-lucide="shield-check"></i></div><div>ROOM WANGI <span style="color:var(--orange-dark)">GACOR</span></div></div>
+    <div class="version">V2.3</div>
+  </header>
+
+  <main class="content">
+    <section class="page active" id="page-home">
+      <div class="greeting">Halo, <span id="helloUser">Player</span> 👋</div>
+      <div class="description">Selamat datang kembali. Atur preferensi RW kamu di bawah ini.</div>
+
+      <div class="section card status-card">
+        <div class="status-left">
+          <div class="toggle-icon"><i data-lucide="shield-check"></i></div>
+          <div><div class="status-name">Status Aktivasi</div><div class="status-desc" id="trialText">Trial aktif</div></div>
+        </div>
+        <div class="status-pill">TRIAL</div>
+      </div>
+
+      <div class="section">
+        <div class="section-heading"><i data-lucide="sliders-horizontal"></i> ROOM CONFIGURATION</div>
+        <div class="card">
+          <div class="field-grid">
+            <div class="field-wrap"><label class="field-label" for="playerId">PLAYER ID</label><input class="field" id="playerId" placeholder="Contoh: 12345678" inputmode="numeric"></div>
+            <div class="field-wrap"><label class="field-label" for="roomId">ROOM ID</label><input class="field" id="roomId" placeholder="Masukkan room ID" inputmode="numeric"></div>
+          </div>
+          <label class="field-label" for="rank">RANK PREFERENSI</label>
+          <select class="field" id="rank">
+            <option>Epic</option><option>Legend</option><option>Mythic</option><option>Mythic Honor</option><option>Mythic Glory</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-heading"><i data-lucide="settings-2"></i>SETTINGS</div>
+        <div class="card toggle-list">
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="wifi"></i></div><div><div class="toggle-name">Stabil Network</div><div class="toggle-desc">Stabil kan jaringan saat bermain</div></div></div>
+            <label class="switch"><input type="checkbox" id="network"><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="door-open"></i></div><div><div class="toggle-name">Room Wangi</div><div class="toggle-desc">Aktifkan RW (PENTING)</div></div></div>
+            <label class="switch"><input type="checkbox" id="room"><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="activity"></i></div><div><div class="toggle-name">Enemy Lag</div><div class="toggle-desc">Bikin jadi musuh ngelag saat bermain</div></div></div>
+            <label class="switch"><input type="checkbox" id="lag"><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="bot"></i></div><div><div class="toggle-name">Enemy BOT</div><div class="toggle-desc">Bikin Musuh jadi bot / pokemon</div></div></div>
+            <label class="switch"><input type="checkbox" id="bot"><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="users"></i></div><div><div class="toggle-name">Enemy Low Rank</div><div class="toggle-desc">Ketemu musuh di bawah rank kamu</div></div></div>
+            <label class="switch"><input type="checkbox" id="lowrank"><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <button class="primary" id="runBtn"><i data-lucide="play" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> INJECT!</button>
+      <div class="footer-note">Klik "INJECT" Untuk memulai Aktifin RW (Room Wangi) Kamu!</div>
+    </section>
+
+    <section class="page" id="page-device" style="display:none">
+      <div class="greeting">Informasi <span>Perangkat</span></div>
+      <div class="description">Informasi browser dan sesi aplikasi yang dapat dibaca di perangkat ini.</div>
+      <div class="section card">
+        <div class="section-heading"><i data-lucide="smartphone"></i> DEVICE DETAILS</div>
+        <div class="info-row"><span>Device ID</span><strong id="deviceId">Memuat...</strong></div>
+        <div class="info-row"><span>Platform</span><strong id="platform">Tidak diketahui</strong></div>
+        <div class="info-row"><span>Browser / WebView</span><strong id="browser">Tidak diketahui</strong></div>
+        <div class="info-row"><span>Username</span><strong id="deviceUser">-</strong></div>
+        <div class="info-row"><span>Status</span><strong style="color:#578c62">Trial aktif</strong></div>
+        <div class="info-row"><span>Sisa Trial</span><strong id="deviceTrial">7 hari</strong></div>
+      </div>
+      <div class="section card">
+        <div class="section-heading"><i data-lucide="clock-3"></i> SESSION</div>
+        <div class="info-row"><span>Aktivasi</span><strong id="activationDate">-</strong></div>
+        <div class="info-row"><span>Berakhir</span><strong id="expiryDate">-</strong></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-info" style="display:none">
+      <div class="greeting">Tentang <span>Aplikasi</span></div>
+      <div class="description">Identitas developer dan informasi versi aplikasi.</div>
+      <div class="section card">
+        <div class="info-icon"><i data-lucide="shield-check"></i></div>
+        <div class="info-name">Room Wangi <span>GACOR</span></div>
+        <div class="small" style="margin-top:8px">Room Wangi RW</div>
+        <div class="info-badge"><i data-lucide="badge-check" style="width:12px;height:12px;vertical-align:middle;margin-right:4px"></i> VERSION 2.3</div>
+        <div style="height:20px"></div>
+        <div class="info-row"><span>Nama Dev</span><strong>skyyVibe</strong></div>
+        <div class="info-row"><span>Nama APK</span><strong>Room Wangi GACOR</strong></div>
+        <div class="info-row"><span>Versi</span><strong>2.3</strong></div>
+        <div class="info-row"><span>Lisensi</span><strong>Trial 7 Hari</strong></div>
+      </div>
+      <div class="section card">
+        <div class="section-heading"><i data-lucide="info"></i> CATATAN</div>
+        <div class="small">Room Wangi GACOR adalah antarmuka Aplikasi. Aplikasi ini beneran akses sistem internal MLBB, tidak mengubah matchmaking, dan tidak dapat memengaruhi jaringan perangkat lain.</div>
+      </div>
+      <button class="primary" id="logoutBtn" style="background:#fff0e8;color:var(--orange-dark)"><i data-lucide="log-out" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> Keluar dari Sesi</button>
+    </section>
+  </main>
+
+  <nav class="navbar">
+    <button class="nav-item active" data-page="home"><i data-lucide="house"></i><span>HOME</span></button>
+    <button class="nav-item" data-page="device"><i data-lucide="smartphone"></i><span>DEVICE</span></button>
+    <button class="nav-item" data-page="info"><i data-lucide="info"></i><span>INFO</span></button>
+  </nav>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ACTIVATION_KEY = "RW_GACOR2026";
+const TRIAL_MS = 7 * 24 * 60 * 60 * 1000;
+const GET_KEY_LINK = "ISI_LINK_GET_KEY_DI_SINI";
+const $ = id => document.getElementById(id);
+
+/* Manusia lidi yang berjalan ke dua arah dan sesekali menoleh ke arah penonton */
+(function initWatchers(){
+  const canvas=$("watcherCanvas");
+  const ctx=canvas.getContext("2d");
+  if(!ctx)return;
+
+  let width=0,height=0,dpr=1,people=[];
+  const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function resize(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    width=window.innerWidth;
+    height=window.innerHeight;
+    canvas.width=Math.round(width*dpr);
+    canvas.height=Math.round(height*dpr);
+    canvas.style.width=width+"px";
+    canvas.style.height=height+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    createPeople();
+  }
+
+  function createPeople(){
+    const count=Math.max(13,Math.min(28,Math.floor(width/24)));
+    people=[];
+    for(let i=0;i<count;i++){
+      const scale=.48+Math.random()*.52;
+      people.push({
+        x:Math.random()*width,
+        y:Math.random()*height,
+        scale,
+        direction:Math.random()>.5?1:-1,
+        speed:.18+Math.random()*.42,
+        phase:Math.random()*Math.PI*2,
+        turn:Math.random()*Math.PI*2,
+        turnSpeed:.008+Math.random()*.018,
+        opacity:.18+Math.random()*.25,
+        height:38+Math.random()*22
+      });
+    }
+  }
+
+  function drawPerson(p,time){
+    const h=p.height*p.scale;
+    const head=h*.14;
+    const shoulderY=-h*.28;
+    const hipY=h*.10;
+    const step=Math.sin(p.phase)*h*.09;
+    const armSwing=Math.sin(p.phase+Math.PI)*h*.12;
+
+    ctx.save();
+    ctx.translate(p.x,p.y);
+    ctx.scale(p.direction*p.scale,p.scale);
+    ctx.strokeStyle="rgba(185,121,80,"+p.opacity+")";
+    ctx.fillStyle="rgba(185,121,80,"+p.opacity+")";
+    ctx.lineWidth=Math.max(1.1,1.8/p.scale);
+    ctx.lineCap="round";
+    ctx.lineJoin="round";
+
+    // Kepala
+    ctx.beginPath();
+    ctx.arc(0,-h*.47,head,0,Math.PI*2);
+    ctx.stroke();
+
+    // Mata kecil: kepala sesekali menoleh mengawasi penonton
+    const looking=Math.sin(p.turn)>.15;
+    ctx.beginPath();
+    if(looking){
+      ctx.arc(-head*.28,-h*.48,Math.max(.7,head*.09),0,Math.PI*2);
+      ctx.arc(head*.28,-h*.48,Math.max(.7,head*.09),0,Math.PI*2);
+    }else{
+      ctx.arc(0,-h*.48,Math.max(.7,head*.09),0,Math.PI*2);
+    }
+    ctx.fill();
+
+    // Badan
+    ctx.beginPath();
+    ctx.moveTo(0,-h*.36);
+    ctx.lineTo(0,hipY);
+    ctx.stroke();
+
+    // Tangan bergerak saat berjalan
+    ctx.beginPath();
+    ctx.moveTo(0,shoulderY);
+    ctx.lineTo(-h*.16+armSwing,-h*.02);
+    ctx.moveTo(0,shoulderY);
+    ctx.lineTo(h*.16-armSwing,-h*.02);
+    ctx.stroke();
+
+    // Kaki berjalan
+    ctx.beginPath();
+    ctx.moveTo(0,hipY);
+    ctx.lineTo(-h*.13+step,h*.36);
+    ctx.moveTo(0,hipY);
+    ctx.lineTo(h*.13-step,h*.36);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  let last=0;
+  function animate(time){
+    requestAnimationFrame(animate);
+    if(reducedMotion)return;
+    if(time-last<30)return;
+    last=time;
+
+    ctx.clearRect(0,0,width,height);
+    if(!$("activation").classList.contains("active"))return;
+
+    for(const p of people){
+      p.phase+=p.speed*.09;
+      p.turn+=p.turnSpeed;
+
+      p.x+=p.direction*p.speed;
+      if(p.direction>0 && p.x>width+20)p.x=-20;
+      if(p.direction<0 && p.x<-20)p.x=width+20;
+
+      // Bergerak di jalur masing-masing, dengan sedikit gerakan vertikal
+      p.y+=Math.sin(p.phase*.3)*.12;
+      if(p.y>height+30)p.y=-30;
+      if(p.y<-30)p.y=height+30;
+
+      drawPerson(p,time);
+    }
+  }
+
+  window.addEventListener("resize",resize);
+  resize();
+  requestAnimationFrame(animate);
+})();
+
+function showToast(message){
+  const el=$("toast");
+  el.textContent=message;
+  el.classList.add("show");
+  clearTimeout(showToast.timer);
+  showToast.timer=setTimeout(()=>el.classList.remove("show"),2600);
+}
+
+/* Ganti GET_KEY_LINK di atas dengan URL tujuan lu. */
+$("getKeyBtn").addEventListener("click",function(e){
+  if(GET_KEY_LINK==="ISI_LINK_GET_KEY_DI_SINI"){
+    e.preventDefault();
+    showToast("Link GET KEY belum diatur.");
+    return;
+  }
+  this.href=GET_KEY_LINK;
+});
+
+function dateText(date){
+  return new Date(date).toLocaleString("id-ID",{
+    day:"2-digit",month:"short",year:"numeric",
+    hour:"2-digit",minute:"2-digit"
+  });
+}
+
+function getSession(){
+  try{return JSON.parse(localStorage.getItem("rwgacor_session")||"null")}
+  catch{return null}
+}
+
+function remaining(session){
+  return Math.max(0,session.expiresAt-Date.now());
+}
+
+function validSession(){
+  const s=getSession();
+  return !!(s && s.username && s.activatedAt && s.expiresAt>Date.now());
+}
+
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  $(id).classList.add("active");
+}
+
+function updateTrial(){
+  const s=getSession();
+  if(!s)return;
+  const ms=remaining(s);
+  const days=Math.ceil(ms/(24*60*60*1000));
+  $("trialText").textContent=days+" hari tersisa";
+  $("deviceTrial").textContent=days+" hari";
+  $("activationDate").textContent=dateText(s.activatedAt);
+  $("expiryDate").textContent=dateText(s.expiresAt);
+}
+
+function getDeviceInfo(){
+  // Browser-only identifier; bukan hardware ID Android.
+  let id=localStorage.getItem("rwgacor_device");
+  if(!id){
+    id="RW-"+Math.random().toString(36).slice(2,8).toUpperCase()+"-"+Date.now().toString(36).slice(-5).toUpperCase();
+    localStorage.setItem("rwgacor_device",id);
+  }
+  $("deviceId").textContent=id;
+  $("platform").textContent=navigator.userAgentData?.platform || navigator.platform || "Tidak diketahui";
+  const ua=navigator.userAgent;
+  $("browser").textContent=/Android/i.test(ua)?"Android WebView / Browser":/iPhone|iPad/i.test(ua)?"iOS Browser":"Browser";
+}
+
+function enterApp(){
+  const s=getSession();
+  if(!s || !validSession()){
+    localStorage.removeItem("rwgacor_session");
+    showScreen("activation");
+    return;
+  }
+  $("helloUser").textContent=s.username;
+  $("deviceUser").textContent=s.username;
+  updateTrial();
+  getDeviceInfo();
+  showScreen("app");
+}
+
+$("activateBtn").addEventListener("click",()=>{
+  const username=$("username").value.trim();
+  const key=$("activationKey").value.trim();
+  const error=$("activationError");
+  if(!username || key!==ACTIVATION_KEY){
+    error.style.display="block";
+    return;
+  }
+  error.style.display="none";
+
+  const old=getSession();
+  // Username/key yang sama di browser ini tidak mereset masa trial.
+  if(old && old.username===username && old.expiresAt>Date.now()){
+    enterApp();
+    return;
+  }
+
+  const now=Date.now();
+  localStorage.setItem("rwgacor_session",JSON.stringify({
+    username,activatedAt:now,expiresAt:now+TRIAL_MS
+  }));
+  enterApp();
+  showToast("Aktivasi berhasil! Trial 7 hari dimulai.");
+});
+
+$("activationKey").addEventListener("keydown",e=>{
+  if(e.key==="Enter")$("activateBtn").click();
+});
+$("username").addEventListener("keydown",e=>{
+  if(e.key==="Enter")$("activationKey").focus();
+});
+
+document.querySelectorAll(".nav-item").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".nav-item").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+    $("page-"+btn.dataset.page).style.display="block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+
+$("runBtn").addEventListener("click",()=>{
+  if(!validSession()){
+    showToast("Trial sudah berakhir. Aktivasi kembali diperlukan.");
+    showScreen("activation");
+    return;
+  }
+  const player=$("playerId").value.trim();
+  const room=$("roomId").value.trim();
+  if(!player || !room){
+    showToast("❌ Isi Player ID dan Room ID terlebih dahulu.");
+    return;
+  }
+
+  const config={
+    playerId:player,
+    roomId:room,
+    rank:$("rank").value,
+    network:$("network").checked,
+    roomMode:$("room").checked,
+    enemyLag:$("lag").checked,
+    enemyBot:$("bot").checked,
+    enemyLowRank:$("lowrank").checked
+  };
+  localStorage.setItem("rwgacor_config",JSON.stringify(config));
+  showToast("✅ INJECT DONE! | GAS SEKARANG MATCH NYA SOLO,DUO,PARTY BISA!");
+});
+
+function restoreConfig(){
+  try{
+    const c=JSON.parse(localStorage.getItem("rwgacor_config")||"null");
+    if(!c)return;
+    $("playerId").value=c.playerId||"";
+    $("roomId").value=c.roomId||"";
+    $("rank").value=c.rank||"Epic";
+    $("network").checked=!!c.network;
+    $("room").checked=!!c.roomMode;
+    $("lag").checked=!!c.enemyLag;
+    $("bot").checked=!!c.enemyBot;
+    $("lowrank").checked=!!c.enemyLowRank;
+  }catch{}
+}
+
+$("logoutBtn").addEventListener("click",()=>{
+  localStorage.removeItem("rwgacor_session");
+  $("username").value="";
+  $("activationKey").value="";
+  showScreen("activation");
+  showToast("Kamu telah keluar dari sesi.");
+});
+
+function boot(){
+  if(window.lucide)lucide.createIcons();
+  restoreConfig();
+  if(validSession())enterApp();
+  else showScreen("activation");
+
+  setTimeout(()=>$("loader").classList.add("hidden"),900);
+  setInterval(()=>{
+    if(getSession() && !validSession()){
+      localStorage.removeItem("rwgacor_session");
+      showScreen("activation");
+      showToast("Masa trial 7 hari telah berakhir.");
+    }else if(validSession())updateTrial();
+  },30000);
+}
+boot();
+</script>
+</body>
+</html>
