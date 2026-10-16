@@ -7,219 +7,221 @@
 <title>RW GACOR — V2.3</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/epic.jpg">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/legend.jpeg">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/mythic.jpg">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/mythical-honor.jpg">
+<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/mythical-glory.jpeg">
+
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-:root{
-  --bg:#fffaf6;
-  --surface:#ffffff;
-  --soft:#fff2e8;
-  --orange:#d99a70;
-  --orange-dark:#b97950;
-  --text:#453a33;
-  --muted:#a39890;
-  --border:#f1e6dd;
-  --shadow:0 10px 30px rgba(126,91,64,.07);
-}
+:root{--bg:#fffaf6;--surface:#fff;--soft:#fff2e8;--orange:#d99a70;--orange-dark:#b97950;--text:#453a33;--muted:#a39890;--border:#f1e6dd;--shadow:0 10px 30px rgba(126,91,64,.07)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:'Plus Jakarta Sans',sans-serif;
-  min-height:100vh;overflow-x:hidden;
-}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.screen{display:none;min-height:100vh}
-.screen.active{display:flex;flex-direction:column}
-#activation{
-  justify-content:center;align-items:center;padding:26px;
-  position:relative;isolation:isolate;background:transparent;
-}
-#watcherCanvas{
-  position:fixed;inset:0;width:100%;height:100%;
-  pointer-events:none;z-index:-1;
-}
-.logo{
-  width:76px;height:76px;border-radius:26px;
-  display:grid;place-items:center;background:var(--soft);
-  color:var(--orange-dark);margin:0 auto 18px;
-  border:1px solid var(--border);
-}
-.logo svg{width:34px;height:34px}
-.brand{text-align:center;font-size:25px;font-weight:800;letter-spacing:-1px}
-.brand span{color:var(--orange-dark)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;overflow-x:hidden;transition:background .25s,color .25s}
+button,input,select{font:inherit}button{cursor:pointer}
+.screen{display:none;min-height:100vh}.screen.active{display:flex;flex-direction:column}
+#activation{justify-content:center;align-items:center;padding:26px;position:relative;isolation:isolate;background:transparent}
+#watcherCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+.logo{width:76px;height:76px;border-radius:26px;display:grid;place-items:center;background:var(--soft);margin:0 auto 18px;border:1px solid var(--border);overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:contain;padding:5px}
+.brand{text-align:center;font-size:25px;font-weight:800;letter-spacing:-1px}.brand span{color:var(--orange-dark)}
 .subtitle{text-align:center;font-size:12px;color:var(--muted);margin-top:8px}
-.card{
-  width:100%;background:var(--surface);border:1px solid var(--border);
-  border-radius:22px;padding:20px;box-shadow:var(--shadow);
-}
+.card{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:var(--shadow);transition:background .25s,border-color .25s}
 .activation-card{max-width:390px;margin-top:28px}
 .section-title{font-size:15px;font-weight:800;margin:0 0 6px}
 .small{font-size:11px;color:var(--muted);line-height:1.7}
 .field-label{display:block;font-size:11px;font-weight:700;margin:17px 0 8px}
-.field{
-  width:100%;border:1px solid var(--border);border-radius:13px;
-  padding:14px;background:#fffdfb;color:var(--text);outline:none;
-  font-size:12px;transition:.2s;
-}
+.field{width:100%;border:1px solid var(--border);border-radius:13px;padding:14px;background:var(--bg);color:var(--text);outline:none;font-size:12px;transition:.2s}
 .field:focus{border-color:var(--orange)}
-.primary{
-  width:100%;border:0;border-radius:13px;padding:14px;
-  background:var(--orange);color:white;font-size:12px;font-weight:800;
-  margin-top:18px;transition:transform .15s,background .2s;
-}
+.primary{width:100%;border:0;border-radius:13px;padding:14px;background:var(--orange);color:white;font-size:12px;font-weight:800;margin-top:18px;transition:transform .15s,background .2s}
 .primary:active{transform:scale(.97)}
-.get-key{
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  width:100%;border:1px solid var(--border);border-radius:13px;
-  padding:13px;margin-top:10px;background:#fffaf6;
-  color:var(--orange-dark);font-size:12px;font-weight:800;
-  text-decoration:none;transition:transform .15s,background .2s;
-}
-.get-key:active{transform:scale(.97)}
-.get-key svg{width:15px;height:15px}
+.get-key{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;border:1px solid var(--border);border-radius:13px;padding:13px;margin-top:10px;background:var(--bg);color:var(--orange-dark);font-size:12px;font-weight:800;text-decoration:none;transition:transform .15s,background .2s}
+.get-key:active{transform:scale(.97)}.get-key svg{width:15px;height:15px}
 .error{font-size:11px;color:#c45d4d;margin-top:12px;display:none}
-.topbar{
-  padding:20px 19px 13px;display:flex;align-items:center;
-  justify-content:space-between;gap:12px;
-}
+.topbar{padding:20px 19px 13px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .top-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
-.mini-logo{
-  width:38px;height:38px;border-radius:13px;background:var(--soft);
-  color:var(--orange-dark);display:grid;place-items:center;
-}
-.mini-logo svg{width:20px;height:20px}
+.mini-logo{width:38px;height:38px;border-radius:13px;background:var(--soft);display:grid;place-items:center;overflow:hidden;flex-shrink:0}
+.mini-logo img{width:100%;height:100%;object-fit:contain;padding:3px}
 .version{font-size:10px;background:var(--soft);color:var(--orange-dark);padding:7px 10px;border-radius:20px;font-weight:800}
 .content{padding:5px 17px 110px;flex:1}
-.greeting{font-size:22px;font-weight:800;letter-spacing:-.7px}
-.greeting span{color:var(--orange-dark)}
+.greeting{font-size:22px;font-weight:800;letter-spacing:-.7px}.greeting span{color:var(--orange-dark)}
 .description{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7}
 .section{margin-top:19px}
 .section-heading{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;margin-bottom:12px}
 .section-heading svg{width:16px;height:16px;color:var(--orange-dark)}
-.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.field-wrap{min-width:0}
-.field-wrap .field-label{margin-top:0}
-.field-wrap .field{padding:12px 10px;font-size:11px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field-wrap{min-width:0}
+.field-wrap .field-label{margin-top:0}.field-wrap .field{padding:12px 10px;font-size:11px}
 select.field{appearance:auto}
 .toggle-list{display:flex;flex-direction:column;gap:0}
-.toggle-row{
- display:flex;align-items:center;justify-content:space-between;
- gap:12px;padding:14px 0;border-bottom:1px solid #f6eee8;
-}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
 .toggle-row:last-child{border-bottom:0}
 .toggle-info{display:flex;align-items:center;gap:11px;min-width:0}
-.toggle-icon{
- width:35px;height:35px;flex-shrink:0;border-radius:12px;
- background:var(--soft);color:var(--orange-dark);display:grid;place-items:center
-}
+.toggle-icon{width:35px;height:35px;flex-shrink:0;border-radius:12px;background:var(--soft);color:var(--orange-dark);display:grid;place-items:center}
 .toggle-icon svg{width:17px;height:17px}
-.toggle-name{font-size:11px;font-weight:800}
-.toggle-desc{font-size:10px;color:var(--muted);margin-top:4px}
+.toggle-name{font-size:11px;font-weight:800}.toggle-desc{font-size:10px;color:var(--muted);margin-top:4px}
 .switch{position:relative;width:39px;height:23px;flex-shrink:0}
 .switch input{opacity:0;width:0;height:0}
-.slider{
- position:absolute;inset:0;background:#e9e0d9;border-radius:30px;transition:.25s
-}
-.slider:before{
- content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;
- border-radius:50%;background:white;box-shadow:0 1px 4px #0001;transition:.25s
-}
-.switch input:checked+.slider{background:var(--orange)}
-.switch input:checked+.slider:before{transform:translateX(16px)}
+.slider{position:absolute;inset:0;background:#e9e0d9;border-radius:30px;transition:.25s}
+.slider:before{content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;border-radius:50%;background:white;box-shadow:0 1px 4px #0001;transition:.25s}
+.switch input:checked+.slider{background:var(--orange)}.switch input:checked+.slider:before{transform:translateX(16px)}
 .status-card{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .status-left{display:flex;align-items:center;gap:11px}
-.status-dot{width:9px;height:9px;border-radius:50%;background:#82b991;box-shadow:0 0 0 4px #82b99120}
-.status-name{font-size:12px;font-weight:800}
-.status-desc{font-size:10px;color:var(--muted);margin-top:4px}
+.status-name{font-size:12px;font-weight:800}.status-desc{font-size:10px;color:var(--muted);margin-top:4px}
 .status-pill{background:#eff8f0;color:#578c62;font-size:10px;font-weight:800;padding:7px 10px;border-radius:20px}
-.info-row{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #f6eee8;font-size:11px}
-.info-row:last-child{border-bottom:0}
-.info-row span:first-child{color:var(--muted)}
+.info-row{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid var(--border);font-size:11px}
+.info-row:last-child{border-bottom:0}.info-row span:first-child{color:var(--muted)}
 .info-row strong{text-align:right;overflow-wrap:anywhere}
-.info-icon{
- width:62px;height:62px;border-radius:21px;display:grid;place-items:center;
- color:var(--orange-dark);background:var(--soft);margin-bottom:14px;
-}
-.info-icon svg{width:29px;height:29px}
-.info-name{font-size:23px;font-weight:800;letter-spacing:-.7px}
-.info-name span{color:var(--orange-dark)}
+.info-icon{width:62px;height:62px;border-radius:21px;display:grid;place-items:center;background:var(--soft);margin-bottom:14px;overflow:hidden}
+.info-icon img{width:100%;height:100%;object-fit:contain;padding:4px}
+.info-name{font-size:23px;font-weight:800;letter-spacing:-.7px}.info-name span{color:var(--orange-dark)}
 .info-badge{display:inline-flex;margin-top:9px;padding:7px 10px;border-radius:20px;background:var(--soft);color:var(--orange-dark);font-size:10px;font-weight:800}
-.navbar{
- position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
- width:min(330px,calc(100% - 34px));padding:6px;
- border:1px solid var(--border);border-radius:20px;background:#ffffffed;
- box-shadow:0 10px 35px #7b58331a;backdrop-filter:blur(16px);
- display:flex;gap:4px;z-index:10;
-}
-.nav-item{
- position:relative;isolation:isolate;flex:1;border:0;background:transparent;
- border-radius:15px;min-height:48px;color:var(--muted);
- display:flex;flex-direction:column;align-items:center;justify-content:center;
- gap:4px;font-size:9px;font-weight:800;transition:color .25s;
-}
-.nav-item svg{width:18px;height:18px;position:relative;z-index:1}
-.nav-item span{position:relative;z-index:1}
-.nav-item.active{color:var(--orange-dark)}
-.nav-item.active:before{
- content:"";position:absolute;inset:0;background:var(--soft);border-radius:15px;
- animation:bubble .3s cubic-bezier(.2,.8,.2,1);
-}
-@keyframes bubble{
- 0%{transform:scale(.65);border-radius:50%;opacity:.4}
- 70%{transform:scale(1.06);border-radius:13px}
- 100%{transform:scale(1);border-radius:15px;opacity:1}
-}
-.toast{
- position:fixed;left:50%;bottom:88px;transform:translate(-50%,15px);
- opacity:0;pointer-events:none;background:#493d35;color:white;
- padding:12px 16px;border-radius:12px;font-size:11px;z-index:20;
- transition:.25s;max-width:calc(100% - 35px);text-align:center;
-}
-.toast.show{opacity:1;transform:translate(-50%,0)}
+.rank-preview{margin-top:12px;border:1px solid var(--border);border-radius:16px;padding:14px;display:flex;align-items:center;gap:14px;background:var(--bg);min-height:110px}
+.rank-image-wrap{width:82px;height:82px;flex-shrink:0;display:grid;place-items:center;border-radius:14px;overflow:hidden;background:transparent}
+.rank-image{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.rank-preview-title{font-size:12px;font-weight:800}.rank-preview-desc{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.6}
+.theme-title{font-size:12px;font-weight:800;margin-bottom:6px}
+.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}
+.theme-option{border:1px solid var(--border);border-radius:14px;background:var(--bg);color:var(--text);padding:11px 10px;display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;text-align:left;min-width:0}
+.theme-option.selected{border-color:var(--orange);box-shadow:0 0 0 2px color-mix(in srgb,var(--orange) 20%,transparent)}
+.theme-swatches{display:flex;gap:3px;flex-shrink:0}.theme-swatches i{display:block;width:10px;height:21px;border-radius:5px}
+.theme-option span:last-child{overflow-wrap:anywhere}.theme-note{font-size:10px;color:var(--muted);line-height:1.7;margin-top:12px}
+.navbar{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:min(330px,calc(100% - 34px));padding:7px;border:1px solid rgba(255,255,255,.72);border-radius:23px;background:rgba(255,255,255,.48);box-shadow:0 12px 38px rgba(70,48,34,.12),inset 0 1px 0 rgba(255,255,255,.8);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);display:flex;gap:5px;z-index:10}
+.nav-item{position:relative;isolation:isolate;flex:1;border:0;background:transparent;border-radius:16px;min-height:48px;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:9px;font-weight:800;transition:color .25s}
+.nav-item svg{width:18px;height:18px;position:relative;z-index:1}.nav-item span{position:relative;z-index:1}.nav-item.active{color:var(--orange-dark)}
+.nav-item.active:before{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--orange) 17%,transparent);border:1px solid color-mix(in srgb,var(--orange) 18%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.6);border-radius:15px;animation:bubble .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes bubble{0%{transform:scale(.65);border-radius:50%;opacity:.4}70%{transform:scale(1.06);border-radius:13px}100%{transform:scale(1);border-radius:15px;opacity:1}}
+
 .loader{
- position:fixed;inset:0;background:var(--bg);z-index:99;
- display:flex;flex-direction:column;align-items:center;justify-content:center;
- transition:opacity .4s;
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .4s, visibility .4s;
 }
-.loader.hidden{opacity:0;pointer-events:none}
+
+.loader.hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
 .orbit{
- width:76px;height:76px;border:2px solid var(--border);border-radius:50%;
- display:grid;place-items:center;position:relative;animation:spin 3s linear infinite;
+  width:76px;
+  height:76px;
+  border:2px solid var(--border);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+  animation:spin 3s linear infinite;
+  flex-shrink:0;
 }
+
 .orbit:before{
- content:"";position:absolute;width:11px;height:11px;border-radius:50%;
- background:var(--orange);top:-5px;left:31px;box-shadow:0 0 12px #d99a7080
+  content:"";
+  position:absolute;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:var(--orange);
+  top:-5px;
+  left:31px;
+  box-shadow:0 0 12px #d99a7080;
 }
-.orbit .mini-logo{width:52px;height:52px;border-radius:18px;animation:spin 3s linear infinite reverse}
-.loader-title{font-weight:800;margin-top:22px;font-size:15px}
-.loader-sub{font-size:10px;color:var(--muted);margin-top:7px}
-@keyframes spin{to{transform:rotate(360deg)}}
+
+.orbit .mini-logo{
+  width:52px;
+  height:52px;
+  border-radius:18px;
+  animation:spin 3s linear infinite reverse;
+}
+
+.loader-title{
+  font-weight:800;
+  margin-top:22px;
+  font-size:15px;
+  text-align:center;
+}
+
+.loader-sub{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:7px;
+  text-align:center;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* POPUP BARU: turun dari atas */
+.toast{
+ position:fixed;top:0;left:50%;width:min(430px,calc(100% - 24px));
+ transform:translate(-50%,-130%);opacity:0;pointer-events:none;
+ background:var(--surface);color:var(--text);
+ padding:15px 16px;border-radius:0 0 19px 19px;
+ font-size:11px;line-height:1.65;z-index:200;
+ box-shadow:0 12px 35px rgba(0,0,0,.15);
+ border:1px solid var(--border);border-top:0;
+ transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .3s;
+ overflow-wrap:anywhere;
+}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast.success{border-bottom:3px solid #28a866}
+.toast.error-toast{border-bottom:3px solid #e04444}
+.toast-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.toast.success .toast-title{color:#219653}
+.toast.error-toast .toast-title{color:#e04444}
+.toast-message{color:var(--text)}
+.toast-meta{font-size:10px;color:var(--muted);margin-top:5px}
+.toast-progress{height:3px;border-radius:4px;background:var(--border);margin-top:11px;overflow:hidden}
+.toast-progress span{display:block;height:100%;width:100%;background:var(--orange);transform-origin:left}
+.toast.success .toast-progress span{background:#28a866}
+.toast.error-toast .toast-progress span{background:#e04444}
+@keyframes toastProgress{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+
+/* PILIHAN MODE DAN EMBLEM */
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.choice-button{border:1px solid var(--border);border-radius:14px;background:var(--bg);color:var(--text);padding:12px 10px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;font-weight:800;transition:.2s;min-width:0}
+.choice-button svg{width:17px;height:17px;color:var(--orange-dark);flex-shrink:0}
+.choice-button.selected{border-color:var(--orange);background:var(--soft);box-shadow:0 0 0 2px color-mix(in srgb,var(--orange) 18%,transparent)}
+.choice-button:active{transform:scale(.97)}
+.choice-caption{font-size:10px;color:var(--muted);line-height:1.6;margin-top:9px}
+.emblem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.emblem-button{border:1px solid var(--border);border-radius:14px;background:var(--bg);color:var(--text);padding:12px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:10px;font-weight:800;min-width:0;transition:.2s}
+.emblem-button svg{width:23px;height:23px;color:var(--orange-dark)}
+.emblem-button.selected{border-color:var(--orange);background:var(--soft);box-shadow:0 0 0 2px color-mix(in srgb,var(--orange) 18%,transparent)}
+.emblem-button:active{transform:scale(.97)}
+.emblem-symbol{width:42px;height:42px;border-radius:14px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center}
+.room-id-note{font-size:10px;color:var(--muted);margin-top:7px;line-height:1.6}
 .footer-note{text-align:center;color:var(--muted);font-size:9px;line-height:1.7;margin:18px 0}
-@media(min-width:600px){
- .content{width:100%;max-width:520px;margin:0 auto}
- .topbar{width:100%;max-width:520px;margin:auto}
-}
-@media(prefers-reduced-motion:reduce){
- #watcherCanvas{display:none}
-}
+@media(min-width:600px){.content{width:100%;max-width:520px;margin:0 auto}.topbar{width:100%;max-width:520px;margin:auto}}
+@media(prefers-reduced-motion:reduce){#watcherCanvas{display:none}.toast{transition:none}}
 </style>
 </head>
 <body>
-
-<!-- Animasi manusia lidi khusus halaman aktivasi -->
 <canvas id="watcherCanvas" aria-hidden="true"></canvas>
 
 <div class="loader" id="loader">
-  <div class="orbit"><div class="mini-logo"><i data-lucide="shield-check"></i></div></div>
+  <div class="orbit"><div class="mini-logo"><img src="https://files.catbox.moe/jc3qmv.png" alt="RW"></div></div>
   <div class="loader-title">WELCOME TO ROOM WANGI</div>
   <div class="loader-sub">Menyiapkan pengalaman kamu...</div>
 </div>
 
 <section class="screen active" id="activation">
   <div style="width:100%;max-width:390px">
-    <div class="logo"><i data-lucide="shield-check"></i></div>
+    <div class="logo"><img src="https://files.catbox.moe/jc3qmv.png" alt="RW GACOR"></div>
     <div class="brand">Room Wangi<span> GACOR</span></div>
     <div class="subtitle">Room Wangi MLBB · Version 2.3</div>
     <div class="card activation-card">
@@ -229,30 +231,25 @@ select.field{appearance:auto}
       <input class="field" id="username" placeholder="Masukkan username kamu" maxlength="30" autocomplete="username">
       <label class="field-label" for="activationKey">ACTIVATION KEY</label>
       <input class="field" id="activationKey" placeholder="Masukkan activation key" autocomplete="off">
-      <button class="primary" id="activateBtn"><i data-lucide="shield-check" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> Aktivasi Sekarang</button>
+      <button class="primary" id="activateBtn"><i data-lucide="key-round" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> Aktivasi Sekarang</button>
       <a class="get-key" id="getKeyBtn" href="#" target="_blank" rel="noopener noreferrer"><i data-lucide="key-round"></i> GET KEY</a>
       <div class="error" id="activationError">Username atau activation key tidak valid.</div>
     </div>
-    <div class="footer-note">Trial 7 hari · Really terhubung ke system MLBB</div>
+    <div class="footer-note">Trial 7 hari · Secure terhubung ke system MLBB</div>
   </div>
 </section>
 
 <section class="screen" id="app">
   <header class="topbar">
-    <div class="top-brand"><div class="mini-logo"><i data-lucide="shield-check"></i></div><div>ROOM WANGI <span style="color:var(--orange-dark)">GACOR</span></div></div>
+    <div class="top-brand"><div class="mini-logo"><img src="https://files.catbox.moe/jc3qmv.png" alt="RW"></div><div>ROOM WANGI <span style="color:var(--orange-dark)">GACOR</span></div></div>
     <div class="version">V2.3</div>
   </header>
-
   <main class="content">
     <section class="page active" id="page-home">
-      <div class="greeting">Halo, <span id="helloUser">Player</span> 👋</div>
+      <div class="greeting">Welcome, <span id="helloUser">Player</span> 👋</div>
       <div class="description">Selamat datang kembali. Atur preferensi RW kamu di bawah ini.</div>
-
       <div class="section card status-card">
-        <div class="status-left">
-          <div class="toggle-icon"><i data-lucide="shield-check"></i></div>
-          <div><div class="status-name">Status Aktivasi</div><div class="status-desc" id="trialText">Trial aktif</div></div>
-        </div>
+        <div class="status-left"><div class="toggle-icon"><i data-lucide="shield-check"></i></div><div><div class="status-name">Status Aktivasi</div><div class="status-desc" id="trialText">Trial aktif</div></div></div>
         <div class="status-pill">TRIAL</div>
       </div>
 
@@ -260,44 +257,85 @@ select.field{appearance:auto}
         <div class="section-heading"><i data-lucide="sliders-horizontal"></i> ROOM CONFIGURATION</div>
         <div class="card">
           <div class="field-grid">
-            <div class="field-wrap"><label class="field-label" for="playerId">PLAYER ID</label><input class="field" id="playerId" placeholder="Contoh: 12345678" inputmode="numeric"></div>
-            <div class="field-wrap"><label class="field-label" for="roomId">ROOM ID</label><input class="field" id="roomId" placeholder="Masukkan room ID" inputmode="numeric"></div>
+            <div class="field-wrap">
+              <label class="field-label" for="playerId">PLAYER ID</label>
+              <input class="field" id="playerId" placeholder="7 angka Player ID" inputmode="numeric" maxlength="7" autocomplete="off">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label" for="roomId">ROOM ID</label>
+              <input class="field" id="roomId" placeholder="6 angka Room ID" inputmode="numeric" maxlength="6" autocomplete="off">
+            </div>
           </div>
-          <label class="field-label" for="rank">RANK PREFERENSI</label>
+
+          <label class="field-label" for="rank">SELECT RANK KAMU</label>
           <select class="field" id="rank">
-            <option>Epic</option><option>Legend</option><option>Mythic</option><option>Mythic Honor</option><option>Mythic Glory</option>
+            <option>Epic</option>
+            <option>Legend</option>
+            <option>Mythic</option>
+            <option>Mythic Honor</option>
+            <option>Mythic Glory</option>
           </select>
+          <div class="rank-preview">
+            <div class="rank-image-wrap"><img class="rank-image" id="rankImage" src="https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/epic.jpg" alt="Rank Epic" fetchpriority="high" decoding="async"></div>
+            <div><div class="rank-preview-title" id="rankImageTitle">Rank Epic</div><div class="rank-preview-desc">Gambar rank mengikuti pilihan rank preferensi kamu.</div></div>
+          </div>
+
+          <label class="field-label">PILIH MODE ROOM</label>
+          <div class="choice-grid" id="modeChoices">
+            <button type="button" class="choice-button" data-mode="SOLO"><i data-lucide="user-round"></i> SOLO</button>
+            <button type="button" class="choice-button" data-mode="DUO"><i data-lucide="users-round"></i> DUO</button>
+            <button type="button" class="choice-button" data-mode="TRIO"><i data-lucide="users"></i> TRIO</button>
+            <button type="button" class="choice-button" data-mode="PARTY"><i data-lucide="users"></i> PARTY</button>
+          </div>
+          <div class="choice-caption">Pilih satu mode saja. Mode lainnya akan otomatis nonaktif.</div>
+
+          <label class="field-label">PILIH EMBLEM</label>
+          <div class="emblem-grid" id="emblemChoices">
+            <button type="button" class="emblem-button" data-emblem="TANK">
+              <span class="emblem-symbol"><i data-lucide="shield"></i></span>TANK
+            </button>
+            <button type="button" class="emblem-button" data-emblem="MAGE">
+              <span class="emblem-symbol"><i data-lucide="sparkles"></i></span>MAGE
+            </button>
+            <button type="button" class="emblem-button" data-emblem="ASSASSIN">
+              <span class="emblem-symbol"><i data-lucide="swords"></i></span>ASSASSIN
+            </button>
+            <button type="button" class="emblem-button" data-emblem="FIGHTER">
+              <span class="emblem-symbol"><i data-lucide="swords"></i></span>FIGHTER
+            </button>
+            <button type="button" class="emblem-button" data-emblem="MARKSMAN">
+              <span class="emblem-symbol"><i data-lucide="crosshair"></i></span>MARKSMAN
+            </button>
+            <button type="button" class="emblem-button" data-emblem="SUPPORT">
+              <span class="emblem-symbol"><i data-lucide="heart-pulse"></i></span>SUPPORT
+            </button>
+          </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-heading"><i data-lucide="settings-2"></i>SETTINGS</div>
         <div class="card toggle-list">
-          <div class="toggle-row">
-            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="wifi"></i></div><div><div class="toggle-name">Stabil Network</div><div class="toggle-desc">Stabil kan jaringan saat bermain</div></div></div>
-            <label class="switch"><input type="checkbox" id="network"><span class="slider"></span></label>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="door-open"></i></div><div><div class="toggle-name">Room Wangi</div><div class="toggle-desc">Aktifkan RW (PENTING)</div></div></div>
-            <label class="switch"><input type="checkbox" id="room"><span class="slider"></span></label>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="activity"></i></div><div><div class="toggle-name">Enemy Lag</div><div class="toggle-desc">Bikin jadi musuh ngelag saat bermain</div></div></div>
-            <label class="switch"><input type="checkbox" id="lag"><span class="slider"></span></label>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="bot"></i></div><div><div class="toggle-name">Enemy BOT</div><div class="toggle-desc">Bikin Musuh jadi bot / pokemon</div></div></div>
-            <label class="switch"><input type="checkbox" id="bot"><span class="slider"></span></label>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info"><div class="toggle-icon"><i data-lucide="users"></i></div><div><div class="toggle-name">Enemy Low Rank</div><div class="toggle-desc">Ketemu musuh di bawah rank kamu</div></div></div>
-            <label class="switch"><input type="checkbox" id="lowrank"><span class="slider"></span></label>
-          </div>
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="wifi"></i></div><div><div class="toggle-name">Stabil Network</div><div class="toggle-desc">Stabil kan jaringan saat bermain</div></div></div><label class="switch"><input type="checkbox" id="network"><span class="slider"></span></label></div>
+
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="door-open"></i></div><div><div class="toggle-name">Room Wangi</div><div class="toggle-desc">Aktifkan RW (PENTING)</div></div></div><label class="switch"><input type="checkbox" id="room"><span class="slider"></span></label></div>
+
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="activity"></i></div><div><div class="toggle-name">Enemy Lag</div><div class="toggle-desc">Bikin jadi musuh ngelag saat bermain</div></div></div><label class="switch"><input type="checkbox" id="lag"><span class="slider"></span></label></div>
+
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="bot"></i></div><div><div class="toggle-name">Enemy BOT</div><div class="toggle-desc">Bikin Musuh jadi bot / pokemon</div></div></div><label class="switch"><input type="checkbox" id="bot"><span class="slider"></span></label></div>
+
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="users"></i></div><div><div class="toggle-name">Enemy Low Rank</div><div class="toggle-desc">Ketemu musuh di bawah rank kamu</div></div></div><label class="switch"><input type="checkbox" id="lowrank"><span class="slider"></span></label></div>
+
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="shield"></i></div><div><div class="toggle-name">Anti nabrak jago</div><div class="toggle-desc">anti nabrak musuh jago/proplayer/top global</div></div></div><label class="switch"><input type="checkbox" id="antinabrak"><span class="slider"></span></label></div>
+
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="zap"></i></div><div><div class="toggle-name">Persakit damage hero</div><div class="toggle-desc">Tingkatkan damage hero kamu</div></div></div><label class="switch"><input type="checkbox" id="damage"><span class="slider"></span></label></div>
+
+          <div class="toggle-row"><div class="toggle-info"><div class="toggle-icon"><i data-lucide="wifi-off"></i></div><div><div class="toggle-name">No lag draftpick</div><div class="toggle-desc">No lag saat draft pick</div></div></div><label class="switch"><input type="checkbox" id="draftpick"><span class="slider"></span></label></div>
         </div>
       </div>
 
       <button class="primary" id="runBtn"><i data-lucide="play" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> INJECT!</button>
-      <div class="footer-note">Klik "INJECT" Untuk memulai Aktifin RW (Room Wangi) Kamu!</div>
+      <div class="footer-note">Klik "INJECT" Untuk memulai Injeksi ke Room RW (Room Wangi) Kamu!</div>
     </section>
 
     <section class="page" id="page-device" style="display:none">
@@ -323,7 +361,7 @@ select.field{appearance:auto}
       <div class="greeting">Tentang <span>Aplikasi</span></div>
       <div class="description">Identitas developer dan informasi versi aplikasi.</div>
       <div class="section card">
-        <div class="info-icon"><i data-lucide="shield-check"></i></div>
+        <div class="info-icon"><img src="https://files.catbox.moe/jc3qmv.png" alt="RW GACOR"></div>
         <div class="info-name">Room Wangi <span>GACOR</span></div>
         <div class="small" style="margin-top:8px">Room Wangi RW</div>
         <div class="info-badge"><i data-lucide="badge-check" style="width:12px;height:12px;vertical-align:middle;margin-right:4px"></i> VERSION 2.3</div>
@@ -334,347 +372,425 @@ select.field{appearance:auto}
         <div class="info-row"><span>Lisensi</span><strong>Trial 7 Hari</strong></div>
       </div>
       <div class="section card">
-        <div class="section-heading"><i data-lucide="info"></i> CATATAN</div>
-        <div class="small">Room Wangi GACOR adalah antarmuka Aplikasi. Aplikasi ini beneran akses sistem internal MLBB, tidak mengubah matchmaking, dan tidak dapat memengaruhi jaringan perangkat lain.</div>
+        <div class="section-heading"><i data-lucide="palette"></i> TEMA UI & WARNA</div>
+        <div class="theme-title">Pilih tema tampilan</div>
+        <div class="small">Tema akan diterapkan ke seluruh antarmuka aplikasi.</div>
+        <div class="theme-grid">
+          <button type="button" class="theme-option selected" data-theme="orange"><span class="theme-swatches"><i style="background:#fffaf6"></i><i style="background:#d99a70"></i><i style="background:#b97950"></i></span><span>Orange Pudar</span></button>
+          <button type="button" class="theme-option" data-theme="blue"><span class="theme-swatches"><i style="background:#f4f8ff"></i><i style="background:#78a9ed"></i><i style="background:#376ab5"></i></span><span>Ocean Blue</span></button>
+          <button type="button" class="theme-option" data-theme="purple"><span class="theme-swatches"><i style="background:#faf6ff"></i><i style="background:#b49ae8"></i><i style="background:#7652b7"></i></span><span>Soft Purple</span></button>
+          <button type="button" class="theme-option" data-theme="green"><span class="theme-swatches"><i style="background:#f4fbf6"></i><i style="background:#85c6a0"></i><i style="background:#43865f"></i></span><span>Mint Green</span></button>
+          <button type="button" class="theme-option" data-theme="pink"><span class="theme-swatches"><i style="background:#fff6fa"></i><i style="background:#e9a0c2"></i><i style="background:#b85e8a"></i></span><span>Rose Pink</span></button>
+        </div>
+        <div class="theme-note">Pilihan tema disimpan dan akan tetap digunakan saat aplikasi dibuka kembali.</div>
       </div>
-      <button class="primary" id="logoutBtn" style="background:#fff0e8;color:var(--orange-dark)"><i data-lucide="log-out" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> Keluar dari Sesi</button>
+      <div class="section card">
+        <div class="section-heading"><i data-lucide="info"></i> CATATAN</div>
+        <div class="small">VIP SOURCE CODE - © Buy Only</div>
+      </div>
+      <button class="primary" id="logoutBtn" style="background:var(--soft);color:var(--orange-dark)"><i data-lucide="log-out" style="width:15px;height:15px;vertical-align:middle;margin-right:5px"></i> Keluar dari Sesi</button>
     </section>
   </main>
-
   <nav class="navbar">
-    <button class="nav-item active" data-page="home"><i data-lucide="house"></i><span>HOME</span></button>
+    <button class="nav-item active" data-page="home"><i data-lucide="house"></i><span>ROOM WANGI</span></button>
     <button class="nav-item" data-page="device"><i data-lucide="smartphone"></i><span>DEVICE</span></button>
     <button class="nav-item" data-page="info"><i data-lucide="info"></i><span>INFO</span></button>
   </nav>
 </section>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <div class="toast-title" id="toastTitle"></div>
+  <div class="toast-message" id="toastMessage"></div>
+  <div class="toast-meta" id="toastMeta"></div>
+  <div class="toast-progress"><span id="toastProgress"></span></div>
+</div>
 
 <script>
-const ACTIVATION_KEY = "RW_GACOR2026";
-const TRIAL_MS = 7 * 24 * 60 * 60 * 1000;
-const GET_KEY_LINK = "ISI_LINK_GET_KEY_DI_SINI";
-const $ = id => document.getElementById(id);
+const ACTIVATION_KEY="RW_GACOR2026";
+const TRIAL_MS=7*24*60*60*1000;
+const GET_KEY_LINK="ISI_LINK_GET_KEY_DI_SINI";
+const $=id=>document.getElementById(id);
 
-/* Manusia lidi yang berjalan ke dua arah dan sesekali menoleh ke arah penonton */
-(function initWatchers(){
-  const canvas=$("watcherCanvas");
-  const ctx=canvas.getContext("2d");
-  if(!ctx)return;
+const RANK_IMAGES={
+ "Epic":"https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/epic.jpg",
+ "Legend":"https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/legend.jpeg",
+ "Mythic":"https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/mythic.jpg",
+ "Mythic Honor":"https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/mythical-honor.jpg",
+ "Mythic Glory":"https://cdn.jsdelivr.net/gh/anakrobloxgua-ops/re-gacor-assets@main/mythical-glory.jpeg"
+};
 
-  let width=0,height=0,dpr=1,people=[];
-  const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+Object.values(RANK_IMAGES).forEach(src=>{
+ const img=new Image();
+ img.decoding="async";
+ img.src=src;
+});
 
-  function resize(){
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    width=window.innerWidth;
-    height=window.innerHeight;
-    canvas.width=Math.round(width*dpr);
-    canvas.height=Math.round(height*dpr);
-    canvas.style.width=width+"px";
-    canvas.style.height=height+"px";
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    createPeople();
-  }
+const THEMES={
+ orange:{bg:"#fffaf6",surface:"#ffffff",soft:"#fff2e8",orange:"#d99a70",dark:"#b97950",text:"#453a33",muted:"#a39890",border:"#f1e6dd",shadow:"rgba(126,91,64,.07)"},
+ blue:{bg:"#f4f8ff",surface:"#ffffff",soft:"#e8f0ff",orange:"#78a9ed",dark:"#376ab5",text:"#293b55",muted:"#8796ac",border:"#dce7f7",shadow:"rgba(53,95,155,.09)"},
+ purple:{bg:"#faf6ff",surface:"#ffffff",soft:"#f0e8ff",orange:"#b49ae8",dark:"#7652b7",text:"#40334f",muted:"#a095b0",border:"#e9def8",shadow:"rgba(104,72,145,.08)"},
+ green:{bg:"#f4fbf6",surface:"#ffffff",soft:"#e5f5e9",orange:"#85c6a0",dark:"#43865f",text:"#30463a",muted:"#91a398",border:"#dcefe2",shadow:"rgba(62,119,83,.08)"},
+ pink:{bg:"#fff6fa",surface:"#ffffff",soft:"#fde8f1",orange:"#e9a0c2",dark:"#b85e8a",text:"#503745",muted:"#ac929f",border:"#f4dce8",shadow:"rgba(150,78,111,.08)"}
+};
 
-  function createPeople(){
-    const count=Math.max(13,Math.min(28,Math.floor(width/24)));
-    people=[];
-    for(let i=0;i<count;i++){
-      const scale=.48+Math.random()*.52;
-      people.push({
-        x:Math.random()*width,
-        y:Math.random()*height,
-        scale,
-        direction:Math.random()>.5?1:-1,
-        speed:.18+Math.random()*.42,
-        phase:Math.random()*Math.PI*2,
-        turn:Math.random()*Math.PI*2,
-        turnSpeed:.008+Math.random()*.018,
-        opacity:.18+Math.random()*.25,
-        height:38+Math.random()*22
-      });
-    }
-  }
-
-  function drawPerson(p,time){
-    const h=p.height*p.scale;
-    const head=h*.14;
-    const shoulderY=-h*.28;
-    const hipY=h*.10;
-    const step=Math.sin(p.phase)*h*.09;
-    const armSwing=Math.sin(p.phase+Math.PI)*h*.12;
-
-    ctx.save();
-    ctx.translate(p.x,p.y);
-    ctx.scale(p.direction*p.scale,p.scale);
-    ctx.strokeStyle="rgba(185,121,80,"+p.opacity+")";
-    ctx.fillStyle="rgba(185,121,80,"+p.opacity+")";
-    ctx.lineWidth=Math.max(1.1,1.8/p.scale);
-    ctx.lineCap="round";
-    ctx.lineJoin="round";
-
-    // Kepala
-    ctx.beginPath();
-    ctx.arc(0,-h*.47,head,0,Math.PI*2);
-    ctx.stroke();
-
-    // Mata kecil: kepala sesekali menoleh mengawasi penonton
-    const looking=Math.sin(p.turn)>.15;
-    ctx.beginPath();
-    if(looking){
-      ctx.arc(-head*.28,-h*.48,Math.max(.7,head*.09),0,Math.PI*2);
-      ctx.arc(head*.28,-h*.48,Math.max(.7,head*.09),0,Math.PI*2);
-    }else{
-      ctx.arc(0,-h*.48,Math.max(.7,head*.09),0,Math.PI*2);
-    }
-    ctx.fill();
-
-    // Badan
-    ctx.beginPath();
-    ctx.moveTo(0,-h*.36);
-    ctx.lineTo(0,hipY);
-    ctx.stroke();
-
-    // Tangan bergerak saat berjalan
-    ctx.beginPath();
-    ctx.moveTo(0,shoulderY);
-    ctx.lineTo(-h*.16+armSwing,-h*.02);
-    ctx.moveTo(0,shoulderY);
-    ctx.lineTo(h*.16-armSwing,-h*.02);
-    ctx.stroke();
-
-    // Kaki berjalan
-    ctx.beginPath();
-    ctx.moveTo(0,hipY);
-    ctx.lineTo(-h*.13+step,h*.36);
-    ctx.moveTo(0,hipY);
-    ctx.lineTo(h*.13-step,h*.36);
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  let last=0;
-  function animate(time){
-    requestAnimationFrame(animate);
-    if(reducedMotion)return;
-    if(time-last<30)return;
-    last=time;
-
-    ctx.clearRect(0,0,width,height);
-    if(!$("activation").classList.contains("active"))return;
-
-    for(const p of people){
-      p.phase+=p.speed*.09;
-      p.turn+=p.turnSpeed;
-
-      p.x+=p.direction*p.speed;
-      if(p.direction>0 && p.x>width+20)p.x=-20;
-      if(p.direction<0 && p.x<-20)p.x=width+20;
-
-      // Bergerak di jalur masing-masing, dengan sedikit gerakan vertikal
-      p.y+=Math.sin(p.phase*.3)*.12;
-      if(p.y>height+30)p.y=-30;
-      if(p.y<-30)p.y=height+30;
-
-      drawPerson(p,time);
-    }
-  }
-
-  window.addEventListener("resize",resize);
-  resize();
-  requestAnimationFrame(animate);
-})();
-
-function showToast(message){
-  const el=$("toast");
-  el.textContent=message;
-  el.classList.add("show");
-  clearTimeout(showToast.timer);
-  showToast.timer=setTimeout(()=>el.classList.remove("show"),2600);
+function applyTheme(name,save=true){
+ const t=THEMES[name]||THEMES.orange,root=document.documentElement;
+ root.style.setProperty("--bg",t.bg);
+ root.style.setProperty("--surface",t.surface);
+ root.style.setProperty("--soft",t.soft);
+ root.style.setProperty("--orange",t.orange);
+ root.style.setProperty("--orange-dark",t.dark);
+ root.style.setProperty("--text",t.text);
+ root.style.setProperty("--muted",t.muted);
+ root.style.setProperty("--border",t.border);
+ root.style.setProperty("--shadow","0 10px 30px "+t.shadow);
+ document.querySelector('meta[name="theme-color"]').content=t.bg;
+ document.querySelectorAll(".theme-option").forEach(b=>b.classList.toggle("selected",b.dataset.theme===name));
+ if(save)localStorage.setItem("rwgacor_theme",name);
 }
 
-/* Ganti GET_KEY_LINK di atas dengan URL tujuan lu. */
+document.querySelectorAll(".theme-option").forEach(b=>b.addEventListener("click",()=>{
+ applyTheme(b.dataset.theme);
+ showToast("success","Tema diterapkan","Tema "+b.innerText.trim()+" sudah aktif.");
+}));
+
+function updateRankImage(){
+ const rank=$("rank").value;
+ const img=$("rankImage");
+ const nextSrc=RANK_IMAGES[rank];
+ if(!nextSrc)return;
+ img.alt="Rank "+rank;
+ $("rankImageTitle").textContent="Rank "+rank;
+ img.src=nextSrc;
+}
+$("rank").addEventListener("change",updateRankImage);
+
+/* Popup dari atas */
+let toastTimer;
+function showToast(type,title,message,meta=""){
+ const el=$("toast");
+ const titleEl=$("toastTitle");
+ const messageEl=$("toastMessage");
+ const metaEl=$("toastMeta");
+ const progress=$("toastProgress");
+
+ clearTimeout(toastTimer);
+ el.classList.remove("success","error-toast","show");
+ el.classList.add(type==="success"?"success":"error-toast");
+
+ titleEl.textContent=title;
+ messageEl.textContent=message;
+ metaEl.textContent=meta;
+ metaEl.style.display=meta?"block":"none";
+
+ progress.style.animation="none";
+ void progress.offsetWidth;
+ progress.style.animation="toastProgress 4.2s linear forwards";
+
+ requestAnimationFrame(()=>el.classList.add("show"));
+ toastTimer=setTimeout(()=>el.classList.remove("show"),4200);
+}
+
 $("getKeyBtn").addEventListener("click",function(e){
-  if(GET_KEY_LINK==="ISI_LINK_GET_KEY_DI_SINI"){
-    e.preventDefault();
-    showToast("Link GET KEY belum diatur.");
-    return;
-  }
-  this.href=GET_KEY_LINK;
+ if(GET_KEY_LINK==="ISI_LINK_GET_KEY_DI_SINI"){
+  e.preventDefault();
+  showToast("error-toast","LINK BELUM DIATUR","Link GET KEY belum diatur.");
+  return;
+ }
+ this.href=GET_KEY_LINK;
 });
 
 function dateText(date){
-  return new Date(date).toLocaleString("id-ID",{
-    day:"2-digit",month:"short",year:"numeric",
-    hour:"2-digit",minute:"2-digit"
-  });
+ return new Date(date).toLocaleString("id-ID",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
 }
-
 function getSession(){
-  try{return JSON.parse(localStorage.getItem("rwgacor_session")||"null")}
-  catch{return null}
+ try{return JSON.parse(localStorage.getItem("rwgacor_session")||"null")}
+ catch{return null}
 }
-
-function remaining(session){
-  return Math.max(0,session.expiresAt-Date.now());
-}
-
+function remaining(s){return Math.max(0,s.expiresAt-Date.now())}
 function validSession(){
-  const s=getSession();
-  return !!(s && s.username && s.activatedAt && s.expiresAt>Date.now());
+ const s=getSession();
+ return !!(s&&s.username&&s.activatedAt&&s.expiresAt>Date.now());
 }
-
 function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  $(id).classList.add("active");
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ $(id).classList.add("active");
 }
-
 function updateTrial(){
-  const s=getSession();
-  if(!s)return;
-  const ms=remaining(s);
-  const days=Math.ceil(ms/(24*60*60*1000));
-  $("trialText").textContent=days+" hari tersisa";
-  $("deviceTrial").textContent=days+" hari";
-  $("activationDate").textContent=dateText(s.activatedAt);
-  $("expiryDate").textContent=dateText(s.expiresAt);
+ const s=getSession();if(!s)return;
+ const days=Math.ceil(remaining(s)/(24*60*60*1000));
+ $("trialText").textContent=days+" hari tersisa";
+ $("deviceTrial").textContent=days+" hari";
+ $("activationDate").textContent=dateText(s.activatedAt);
+ $("expiryDate").textContent=dateText(s.expiresAt);
 }
-
 function getDeviceInfo(){
-  // Browser-only identifier; bukan hardware ID Android.
-  let id=localStorage.getItem("rwgacor_device");
-  if(!id){
-    id="RW-"+Math.random().toString(36).slice(2,8).toUpperCase()+"-"+Date.now().toString(36).slice(-5).toUpperCase();
-    localStorage.setItem("rwgacor_device",id);
-  }
-  $("deviceId").textContent=id;
-  $("platform").textContent=navigator.userAgentData?.platform || navigator.platform || "Tidak diketahui";
-  const ua=navigator.userAgent;
-  $("browser").textContent=/Android/i.test(ua)?"Android WebView / Browser":/iPhone|iPad/i.test(ua)?"iOS Browser":"Browser";
+ let id=localStorage.getItem("rwgacor_device");
+ if(!id){
+  id="RW-"+Math.random().toString(36).slice(2,8).toUpperCase()+"-"+Date.now().toString(36).slice(-5).toUpperCase();
+  localStorage.setItem("rwgacor_device",id);
+ }
+ $("deviceId").textContent=id;
+ $("platform").textContent=navigator.userAgentData?.platform||navigator.platform||"Tidak diketahui";
+ const ua=navigator.userAgent;
+ $("browser").textContent=/Android/i.test(ua)?"Android WebView / Browser":/iPhone|iPad/i.test(ua)?"iOS Browser":"Browser";
 }
-
 function enterApp(){
-  const s=getSession();
-  if(!s || !validSession()){
-    localStorage.removeItem("rwgacor_session");
-    showScreen("activation");
-    return;
-  }
-  $("helloUser").textContent=s.username;
-  $("deviceUser").textContent=s.username;
-  updateTrial();
-  getDeviceInfo();
-  showScreen("app");
+ const s=getSession();
+ if(!s||!validSession()){
+  localStorage.removeItem("rwgacor_session");
+  showScreen("activation");
+  return;
+ }
+ $("helloUser").textContent=s.username;
+ $("deviceUser").textContent=s.username;
+ updateTrial();
+ getDeviceInfo();
+ showScreen("app");
 }
 
 $("activateBtn").addEventListener("click",()=>{
-  const username=$("username").value.trim();
-  const key=$("activationKey").value.trim();
-  const error=$("activationError");
-  if(!username || key!==ACTIVATION_KEY){
-    error.style.display="block";
-    return;
-  }
-  error.style.display="none";
-
-  const old=getSession();
-  // Username/key yang sama di browser ini tidak mereset masa trial.
-  if(old && old.username===username && old.expiresAt>Date.now()){
-    enterApp();
-    return;
-  }
-
-  const now=Date.now();
-  localStorage.setItem("rwgacor_session",JSON.stringify({
-    username,activatedAt:now,expiresAt:now+TRIAL_MS
-  }));
+ const username=$("username").value.trim();
+ const key=$("activationKey").value.trim();
+ const error=$("activationError");
+ if(!username||key!==ACTIVATION_KEY){
+  error.style.display="block";
+  showToast("error","AKTIVASI GAGAL","Username atau activation key tidak valid.");
+  return;
+ }
+ error.style.display="none";
+ const old=getSession();
+ if(old&&old.username===username&&old.expiresAt>Date.now()){
   enterApp();
-  showToast("Aktivasi berhasil! Trial 7 hari dimulai.");
+  return;
+ }
+ const now=Date.now();
+ localStorage.setItem("rwgacor_session",JSON.stringify({
+  username,activatedAt:now,expiresAt:now+TRIAL_MS
+ }));
+ enterApp();
+ showToast("success","AKTIVASI BERHASIL","Trial 7 hari dimulai.");
 });
 
 $("activationKey").addEventListener("keydown",e=>{
-  if(e.key==="Enter")$("activateBtn").click();
+ if(e.key==="Enter")$("activateBtn").click();
 });
 $("username").addEventListener("keydown",e=>{
-  if(e.key==="Enter")$("activationKey").focus();
+ if(e.key==="Enter")$("activationKey").focus();
 });
 
-document.querySelectorAll(".nav-item").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".nav-item").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    document.querySelectorAll(".page").forEach(p=>p.style.display="none");
-    $("page-"+btn.dataset.page).style.display="block";
-    window.scrollTo({top:0,behavior:"smooth"});
+document.querySelectorAll(".nav-item").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll(".nav-item").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");
+ document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+ $("page-"+btn.dataset.page).style.display="block";
+ window.scrollTo({top:0,behavior:"smooth"});
+}));
+
+/* Mode room: hanya boleh satu pilihan */
+let selectedMode="";
+document.querySelectorAll(".choice-button[data-mode]").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  selectedMode=btn.dataset.mode;
+  document.querySelectorAll(".choice-button[data-mode]").forEach(item=>{
+   item.classList.toggle("selected",item.dataset.mode===selectedMode);
+   item.setAttribute("aria-pressed",String(item.dataset.mode===selectedMode));
   });
+ });
 });
+
+/* Emblem: hanya boleh satu pilihan */
+let selectedEmblem="";
+document.querySelectorAll(".emblem-button[data-emblem]").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  selectedEmblem=btn.dataset.emblem;
+  document.querySelectorAll(".emblem-button[data-emblem]").forEach(item=>{
+   item.classList.toggle("selected",item.dataset.emblem===selectedEmblem);
+   item.setAttribute("aria-pressed",String(item.dataset.emblem===selectedEmblem));
+  });
+ });
+});
+
+/* ID hanya menerima angka, maksimal panjang yang ditentukan */
+function restrictDigits(input,maxLength){
+ input.addEventListener("input",()=>{
+  input.value=input.value.replace(/\D/g,"").slice(0,maxLength);
+ });
+}
+restrictDigits($("playerId"),7);
+restrictDigits($("roomId"),6);
+
+const SETTING_IDS=[
+ "network","room","lag","bot","lowrank","antinabrak","damage","draftpick"
+];
+const SETTING_NAMES={
+ network:"Stabil Network",
+ room:"Room Wangi",
+ lag:"Enemy Lag",
+ bot:"Enemy BOT",
+ lowrank:"Enemy Low Rank",
+ antinabrak:"Anti nabrak jago",
+ damage:"Persakit damage hero",
+ draftpick:"No lag draftpick"
+};
+
+/* Riwayat room yang sudah disimulasikan di browser ini */
+function getProcessedRooms(){
+ try{
+  const rooms=JSON.parse(localStorage.getItem("rwgacor_processed_rooms")||"[]");
+  return Array.isArray(rooms)?rooms:[];
+ }catch{return []}
+}
+function saveProcessedRoom(roomId){
+ const rooms=getProcessedRooms();
+ if(!rooms.includes(roomId))rooms.push(roomId);
+ localStorage.setItem("rwgacor_processed_rooms",JSON.stringify(rooms));
+}
 
 $("runBtn").addEventListener("click",()=>{
-  if(!validSession()){
-    showToast("Trial sudah berakhir. Aktivasi kembali diperlukan.");
-    showScreen("activation");
-    return;
-  }
-  const player=$("playerId").value.trim();
-  const room=$("roomId").value.trim();
-  if(!player || !room){
-    showToast("❌ Isi Player ID dan Room ID terlebih dahulu.");
-    return;
-  }
+ if(!validSession()){
+  showToast("error","TRIAL BERAKHIR","Trial sudah berakhir. Aktivasi kembali diperlukan.");
+  showScreen("activation");
+  return;
+ }
 
-  const config={
-    playerId:player,
-    roomId:room,
-    rank:$("rank").value,
-    network:$("network").checked,
-    roomMode:$("room").checked,
-    enemyLag:$("lag").checked,
-    enemyBot:$("bot").checked,
-    enemyLowRank:$("lowrank").checked
-  };
-  localStorage.setItem("rwgacor_config",JSON.stringify(config));
-  showToast("✅ INJECT DONE! | GAS SEKARANG MATCH NYA SOLO,DUO,PARTY BISA!");
+ const player=$("playerId").value.trim();
+ const roomId=$("roomId").value.trim();
+
+ if(!/^\d{7}$/.test(player)){
+  showToast("error","PLAYER ID TIDAK VALID","Player ID wajib tepat 7 angka.");
+  $("playerId").focus();
+  return;
+ }
+
+ if(!/^\d{6}$/.test(roomId)){
+  showToast("error","ROOM ID TIDAK VALID","Room ID wajib tepat 6 angka.");
+  $("roomId").focus();
+  return;
+ }
+
+ if(!selectedMode){
+  showToast("error","MODE BELUM DIPILIH","Pilih satu mode room: SOLO, DUO, TRIO, atau PARTY.");
+  return;
+ }
+
+ if(!selectedEmblem){
+  showToast("error","EMBLEM BELUM DIPILIH","Pilih satu emblem terlebih dahulu.");
+  return;
+ }
+
+ const activeSettings=SETTING_IDS.filter(id=>$(id).checked);
+ if(activeSettings.length<2){
+  showToast("error","SETTINGS BELUM CUKUP","Aktifkan minimal 2 pilihan di bagian SETTINGS.");
+  return;
+ }
+
+ if(getProcessedRooms().includes(roomId)){
+  showToast(
+   "error",
+   "ROOM SUDAH DIPROSES",
+   "Room ID "+roomId+" sudah pernah diproses!",
+   "Setiap Room ID hanya dapat diproses satu kali."
+  );
+  return;
+ }
+
+ const config={
+  playerId:player,
+  roomId:roomId,
+  rank:$("rank").value,
+  mode:selectedMode,
+  emblem:selectedEmblem,
+  network:$("network").checked,
+  roomMode:$("room").checked,
+  enemyLag:$("lag").checked,
+  enemyBot:$("bot").checked,
+  enemyLowRank:$("lowrank").checked,
+  antiNabrak:$("antinabrak").checked,
+  damage:$("damage").checked,
+  draftpick:$("draftpick").checked,
+  activeSettings:activeSettings.map(id=>SETTING_NAMES[id]),
+  processedAt:Date.now()
+ };
+
+ /* Simpan konfigurasi simulasi dan tandai Room ID sebagai sudah diproses */
+ localStorage.setItem("rwgacor_config",JSON.stringify(config));
+ saveProcessedRoom(roomId);
+
+ const count=activeSettings.length;
+ const settingsText=activeSettings.map(id=>SETTING_NAMES[id]).join(", ");
+
+ showToast(
+  "success",
+  "Successfully Injection",
+  count+" SETTINGS ON | MODE : "+selectedMode+" | EMBLEM : "+selectedEmblem,
+  "SETTINGS: "+settingsText+" DONE"
+ );
 });
 
 function restoreConfig(){
-  try{
-    const c=JSON.parse(localStorage.getItem("rwgacor_config")||"null");
-    if(!c)return;
-    $("playerId").value=c.playerId||"";
-    $("roomId").value=c.roomId||"";
-    $("rank").value=c.rank||"Epic";
-    $("network").checked=!!c.network;
-    $("room").checked=!!c.roomMode;
-    $("lag").checked=!!c.enemyLag;
-    $("bot").checked=!!c.enemyBot;
-    $("lowrank").checked=!!c.enemyLowRank;
-  }catch{}
+ try{
+  const c=JSON.parse(localStorage.getItem("rwgacor_config")||"null");
+  if(!c)return;
+
+  $("playerId").value=c.playerId||"";
+  $("roomId").value=c.roomId||"";
+  $("rank").value=c.rank||"Epic";
+  $("network").checked=!!c.network;
+  $("room").checked=!!c.roomMode;
+  $("lag").checked=!!c.enemyLag;
+  $("bot").checked=!!c.enemyBot;
+  $("lowrank").checked=!!c.enemyLowRank;
+  $("antinabrak").checked=!!c.antiNabrak;
+  $("damage").checked=!!c.damage;
+  $("draftpick").checked=!!c.draftpick;
+
+  if(c.mode){
+   selectedMode=c.mode;
+   document.querySelectorAll(".choice-button[data-mode]").forEach(btn=>{
+    btn.classList.toggle("selected",btn.dataset.mode===selectedMode);
+    btn.setAttribute("aria-pressed",String(btn.dataset.mode===selectedMode));
+   });
+  }
+
+  if(c.emblem){
+   selectedEmblem=c.emblem;
+   document.querySelectorAll(".emblem-button[data-emblem]").forEach(btn=>{
+    btn.classList.toggle("selected",btn.dataset.emblem===selectedEmblem);
+    btn.setAttribute("aria-pressed",String(btn.dataset.emblem===selectedEmblem));
+   });
+  }
+ }catch{}
 }
 
 $("logoutBtn").addEventListener("click",()=>{
-  localStorage.removeItem("rwgacor_session");
-  $("username").value="";
-  $("activationKey").value="";
-  showScreen("activation");
-  showToast("Kamu telah keluar dari sesi.");
+ localStorage.removeItem("rwgacor_session");
+ $("username").value="";
+ $("activationKey").value="";
+ showScreen("activation");
+ showToast("success","SESI BERAKHIR","Kamu telah keluar dari sesi.");
 });
 
 function boot(){
-  if(window.lucide)lucide.createIcons();
-  restoreConfig();
-  if(validSession())enterApp();
-  else showScreen("activation");
+ if(window.lucide)lucide.createIcons();
+ applyTheme(localStorage.getItem("rwgacor_theme")||"orange",false);
+ restoreConfig();
+ updateRankImage();
 
-  setTimeout(()=>$("loader").classList.add("hidden"),900);
-  setInterval(()=>{
-    if(getSession() && !validSession()){
-      localStorage.removeItem("rwgacor_session");
-      showScreen("activation");
-      showToast("Masa trial 7 hari telah berakhir.");
-    }else if(validSession())updateTrial();
-  },30000);
+ if(validSession())enterApp();
+ else showScreen("activation");
+
+ setTimeout(()=>$("loader").classList.add("hidden"),900);
+
+ setInterval(()=>{
+  if(getSession()&&!validSession()){
+   localStorage.removeItem("rwgacor_session");
+   showScreen("activation");
+   showToast("error","TRIAL BERAKHIR","Masa trial 7 hari telah berakhir.");
+  }else if(validSession()){
+   updateTrial();
+  }
+ },30000);
 }
 boot();
 </script>
